@@ -6,7 +6,7 @@
 /*   By: erwfonta <erwfonta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:11:47 by erwfonta          #+#    #+#             */
-/*   Updated: 2024/08/03 16:57:43 by erwfonta         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:39:53 by erwfonta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,22 @@
 int	main(int ac, char **av)
 {
 	t_fractal	*fractal;
-	int			check_arg;
+	int			temp_fractal_number;
 
-	check_arg = check_args(ac, av);
-	if (check_arg == 0)
+	temp_fractal_number = check_args(ac, av);
+	if (temp_fractal_number == 0)
 	{
 		ft_putendl_fd(ERROR_MESSAGE_ARGS_USAGE, 1);
 		ft_putendl_fd(ERROR_MESSAGE_ARGS_CHOOSE, 1);
 		return (0);
 	}
-	printf("2");
 	fractal = malloc(sizeof(t_fractal));
-	printf("3");
-	if (!fractal)
-	{
-		ft_putendl_fd(ERROR_MESSAGE_ALLOCATE, 1);
-		return (1);
-	}
-	printf("4");
-	init_fractal(fractal);
-	printf("5");
+	fractal->fractal_number = temp_fractal_number;
 	init_mlx(fractal);
-	printf("6");
+	init_fractal(fractal);
+	mlx_mouse_hook(fractal->window, mouse, fractal);
 	mlx_hook(fractal->window, 17, 0L, exit_fractal, fractal);
-	draw(check_arg, fractal);
+	draw(fractal->fractal_number, fractal);
 	mlx_loop(fractal->mlx);
 	return (0);
 }
@@ -49,35 +41,23 @@ int	draw(int check_arg, t_fractal *fractal)
 	{
 		draw_mandelbrot(fractal);
 	}
-	else if (check_arg == JULIA_ARG_VALUE)
-	{
-		/*
-		draw_julia();
-		fractal.cx = -0.8;
-		fractal.cy = 0.156;
-		*/
-	}
-	else if (check_arg == NEWTON_ARG_VALUE)
-	{
-		// draw_newton();
-	}
+	mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->image, 0,
+		0);
 	return (0);
 }
 
 int	draw_mandelbrot(t_fractal *fractal)
 {
-	fractal->name = "mandelbrot";
 	fractal->x = 0;
-	fractal->y = 0;
-	while (fractal->x <= SIZE_X_WINDOW)
+	while (fractal->x < SIZE_X_WINDOW)
 	{
-		while (fractal->y <= SIZE_Y_WINDOW)
+		fractal->y = 0;
+		while (fractal->y < SIZE_Y_WINDOW)
 		{
 			calculate_mandelbrot(fractal);
 			fractal->y++;
 		}
 		fractal->x++;
-		fractal->y = 0;
 	}
 	return (0);
 }
@@ -87,6 +67,7 @@ void	calculate_mandelbrot(t_fractal *fractal)
 	int		i;
 	double	x_temp;
 
+	fractal->name = "mandelbrot";
 	i = 0;
 	fractal->zx = 0.0;
 	fractal->zy = 0.0;
@@ -111,20 +92,18 @@ void	calculate_mandelbrot(t_fractal *fractal)
 
 int	check_args(int ac, char **av)
 {
-	if (ac == 0)
+	if (ac == 1)
 		return (0);
 	if (ac == 2)
 	{
-		if (ft_strncmp(av[1], "mandelbrot", 10) == 0)
+		if (ft_strcmp(av[1], "mandelbrot") == 0)
 			return (MANDELBROT_ARG_VALUE);
-		else if (ft_strncmp(av[1], "julia", 5) == 0)
+		else if (ft_strcmp(av[1], "julia") == 0)
 			return (JULIA_ARG_VALUE);
-		else if (ft_strncmp(av[1], "newton", 6) == 0)
+		else if (ft_strcmp(av[1], "newton") == 0)
 			return (NEWTON_ARG_VALUE);
 		else
 			return (0);
 	}
 	return (0);
 }
-
-// TODO FREE METHODE WHEN FRACTAL ISNT ALLOCATED PROPERLY

@@ -6,7 +6,7 @@
 /*   By: erwfonta <erwfonta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:28:44 by erwfonta          #+#    #+#             */
-/*   Updated: 2024/08/03 14:42:49 by erwfonta         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:41:01 by erwfonta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_fractal
 	double	zoom;
 	char	*name;
 	int		max_iterations;
+	int		fractal_number;
 }			t_fractal;
 
 // error message
@@ -47,15 +48,20 @@ typedef struct s_fractal
 # define ERROR_MESSAGE_ARGS_CHOOSE "Available : mandelbrot, julia, newton"
 # define ERROR_MESSAGE_ALLOCATE "failed to allocate memory for fractal"
 
+// value
 # define SIZE_X_WINDOW 700
 # define SIZE_Y_WINDOW 700
 # define MANDELBROT_ARG_VALUE 1
 # define JULIA_ARG_VALUE 2
 # define NEWTON_ARG_VALUE 3
 
+// MOUSE KEY
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
+
 // TODO replace by libft -> include the submodule
 
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_strcmp(const char *s1, const char *s2);
 void		ft_putendl_fd(char *str, int fd);
 
 // init
@@ -72,5 +78,10 @@ int			exit_fractal(t_fractal *fractal);
 int			draw(int check_arg, t_fractal *fractal);
 int			draw_mandelbrot(t_fractal *fractal);
 void		calculate_mandelbrot(t_fractal *fractal);
+
+// mouse function
+int			mouse(int button, int x, int y, t_fractal *fractal);
+void		zoom_in(t_fractal *fractal, int x, int y);
+void		zoom_out(t_fractal *fractal, int x, int y);
 
 #endif

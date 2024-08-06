@@ -6,7 +6,7 @@
 /*   By: erwfonta <erwfonta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 08:05:19 by erwfonta          #+#    #+#             */
-/*   Updated: 2024/08/03 16:55:14 by erwfonta         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:46:53 by erwfonta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	init_fractal(t_fractal *fractal)
 {
 	fractal->x = 0;
 	fractal->y = 0;
-	fractal->color = 0xFCBE11;
+	fractal->color = 0x210A7F;
 	fractal->zoom = 300;
 	fractal->offset_x = -1.21;
 	fractal->offset_y = -1.21;
-	fractal->max_iterations = 42;
+	fractal->max_iterations = 420;
 }
 
 void	init_mlx(t_fractal *fractal)

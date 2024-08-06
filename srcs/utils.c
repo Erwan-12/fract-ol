@@ -6,7 +6,7 @@
 /*   By: erwfonta <erwfonta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 10:59:04 by erwfonta          #+#    #+#             */
-/*   Updated: 2024/08/03 16:45:28 by erwfonta         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:50:45 by erwfonta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	exit_fractal(t_fractal *fractal)
 {
-	mlx_destroy_image(fractal->mlx, fractal->pointer_to_image);
+	mlx_destroy_image(fractal->mlx, fractal->image);
 	mlx_destroy_window(fractal->mlx, fractal->window);
+	mlx_destroy_display(fractal->mlx);
 	free(fractal->mlx);
 	free(fractal);
-	return (0);
+	exit(0);
 }
 
 void	put_color_to_pixel(t_fractal *fractal, int x, int y, int color)

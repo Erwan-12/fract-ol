@@ -10,9 +10,10 @@ INCDIR = includes
 # Source files
 SRCS = 	main.c \
 		ft_putendl_fd.c \
-		ft_strncmp.c \
+		ft_strcmp.c \
 		init.c \
 		utils.c \
+		mouse.c \
 
 
 OBJS = $(addprefix $(SRCDIR)/,$(SRCS:.c=.o))
